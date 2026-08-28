@@ -1,0 +1,6 @@
+{
+  "name": "SAHABAT RANTAU",
+  "description": "Platform Sosial & Komunitas Modern Khusus Pekerja Migran Indonesia (PMI/TKW)",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

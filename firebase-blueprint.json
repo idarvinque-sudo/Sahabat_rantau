@@ -1,0 +1,279 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "Indonesian Migrant Worker (PMI) user profile",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Firebase Auth UID" },
+        "fullName": { "type": "string", "description": "Full name of the user" },
+        "username": { "type": "string", "description": "Username handle" },
+        "email": { "type": "string", "format": "email", "description": "User email address" },
+        "photoURL": { "type": "string", "description": "Profile picture URL" },
+        "coverURL": { "type": "string", "description": "Cover banner image URL" },
+        "bio": { "type": "string", "description": "Short bio or motto" },
+        "gender": { "type": "string", "enum": ["female", "male", "other"], "description": "Gender" },
+        "birthDate": { "type": "string", "description": "Birth date" },
+        "age": { "type": "number", "description": "Calculated or entered age" },
+        "country": { "type": "string", "description": "Host country, e.g. Taiwan, Hong Kong" },
+        "city": { "type": "string", "description": "Host city, e.g. Taipei, Central" },
+        "occupation": { "type": "string", "description": "Job type, e.g. Caregiver, Factory Worker" },
+        "relationshipStatus": { "type": "string", "description": "Relationship status" },
+        "verified": { "type": "boolean", "description": "Verification status with official PMI badge" },
+        "verificationStatus": { "type": "string", "enum": ["unverified", "pending", "verified", "rejected"] },
+        "premium": { "type": "boolean", "description": "Premium member status" },
+        "premiumUntil": { "type": ["string", "null"], "description": "Premium expiration timestamp" },
+        "balance": { "type": "number", "description": "Wallet balance in Indonesian Rupiah" },
+        "matchDiamonds": { "type": "number", "description": "Token match diamonds" },
+        "isDatingActive": { "type": "boolean", "description": "Whether user activated dating profile" },
+        "createdAt": { "type": "string", "description": "ISO creation timestamp" },
+        "updatedAt": { "type": "string", "description": "ISO update timestamp" },
+        "lastActive": { "type": "string", "description": "Last active timestamp" },
+        "online": { "type": "boolean", "description": "Current online status" },
+        "followersCount": { "type": "number", "description": "Number of followers" },
+        "followingCount": { "type": "number", "description": "Number of following users" },
+        "friendsCount": { "type": "number", "description": "Number of friends" },
+        "postsCount": { "type": "number", "description": "Number of authored posts" },
+        "likesReceived": { "type": "number", "description": "Total likes received" },
+        "matchCount": { "type": "number", "description": "Total successful matches" },
+        "blockedUsers": { "type": "array", "items": { "type": "string" }, "description": "List of blocked UIDs" }
+      },
+      "required": ["uid", "fullName", "email"]
+    },
+    "Post": {
+      "title": "Social Feed Post",
+      "description": "Feed publication created by community members",
+      "type": "object",
+      "properties": {
+        "postId": { "type": "string", "description": "Unique post identifier" },
+        "userId": { "type": "string", "description": "Author UID" },
+        "author": { "type": "object", "description": "Author details" },
+        "content": { "type": "string", "description": "Text caption or story" },
+        "imageUrl": { "type": "string", "description": "Attached image URL" },
+        "videoUrl": { "type": "string", "description": "Attached video URL" },
+        "locationText": { "type": "string", "description": "Location tag" },
+        "category": { "type": "string", "description": "Category name" },
+        "visibility": { "type": "string", "enum": ["public", "friends", "private"] },
+        "createdAt": { "type": "string", "description": "Creation timestamp" },
+        "updatedAt": { "type": "string", "description": "Update timestamp" },
+        "likesCount": { "type": "number", "description": "Total like reactions" },
+        "reactionsCount": { "type": "object", "description": "Counts per reaction type" },
+        "commentsCount": { "type": "number", "description": "Total comments" },
+        "sharesCount": { "type": "number", "description": "Total share counts" }
+      },
+      "required": ["postId", "userId", "content"]
+    },
+    "PostComment": {
+      "title": "Post Comment",
+      "description": "Comment and reply on posts",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "userAvatar": { "type": "string" },
+        "text": { "type": "string" },
+        "likes": { "type": "number" },
+        "replyToId": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "text"]
+    },
+    "PostReaction": {
+      "title": "Post Reaction",
+      "description": "Multi-reaction for social posts",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "userAvatar": { "type": "string" },
+        "type": { "type": "string", "enum": ["like", "love", "haha", "sad", "wow", "support", "care"] },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["userId", "type"]
+    },
+    "DatingProfile": {
+      "title": "Dating & Match Profile",
+      "description": "Verified dating profile for respectful matchmaking",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "nickname": { "type": "string" },
+        "age": { "type": "number" },
+        "gender": { "type": "string" },
+        "country": { "type": "string" },
+        "city": { "type": "string" },
+        "job": { "type": "string" },
+        "relationshipStatus": { "type": "string" },
+        "bio": { "type": "string" },
+        "goal": { "type": "string" },
+        "interests": { "type": "array", "items": { "type": "string" } },
+        "languages": { "type": "array", "items": { "type": "string" } },
+        "photo": { "type": "string" },
+        "isActive": { "type": "boolean" },
+        "isOnline": { "type": "boolean" },
+        "isVerified": { "type": "boolean" }
+      },
+      "required": ["id", "userId", "nickname", "photo"]
+    },
+    "Chat": {
+      "title": "Chat Conversation",
+      "description": "Direct conversation between connected users",
+      "type": "object",
+      "properties": {
+        "chatId": { "type": "string" },
+        "participants": { "type": "array", "items": { "type": "string" } },
+        "lastMessage": { "type": "string" },
+        "lastMessageAt": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["chatId", "participants"]
+    },
+    "ChatMessage": {
+      "title": "Chat Message",
+      "description": "Direct chat message item",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "senderId": { "type": "string" },
+        "text": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "seen": { "type": "boolean" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "senderId", "text"]
+    },
+    "Notification": {
+      "title": "User Notification",
+      "description": "Notifications for likes, reactions, comments, matches, follows, and messages",
+      "type": "object",
+      "properties": {
+        "notificationId": { "type": "string" },
+        "userId": { "type": "string" },
+        "type": { "type": "string" },
+        "fromUserId": { "type": "string" },
+        "title": { "type": "string" },
+        "message": { "type": "string" },
+        "read": { "type": "boolean" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["notificationId", "userId", "title", "message"]
+    },
+    "Community": {
+      "title": "PMI Community",
+      "description": "Placement country PMI community groups",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "country": { "type": "string" },
+        "countryFlag": { "type": "string" },
+        "coverImage": { "type": "string" },
+        "avatar": { "type": "string" },
+        "membersCount": { "type": "number" },
+        "description": { "type": "string" },
+        "category": { "type": "string" }
+      },
+      "required": ["id", "name", "country"]
+    },
+    "Report": {
+      "title": "Safety Report",
+      "description": "User report for abusive or scam content",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "reporterId": { "type": "string" },
+        "targetType": { "type": "string" },
+        "targetId": { "type": "string" },
+        "reason": { "type": "string" },
+        "description": { "type": "string" },
+        "status": { "type": "string", "enum": ["Pending", "Review", "Resolved", "Rejected"] },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["reporterId", "targetType", "targetId", "reason"]
+    },
+    "VerificationRequest": {
+      "title": "Account Verification Request",
+      "description": "Private verification documents submission",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "fullName": { "type": "string" },
+        "idNumber": { "type": "string" },
+        "documentType": { "type": "string" },
+        "country": { "type": "string" },
+        "documentImageUrl": { "type": "string" },
+        "status": { "type": "string" },
+        "submittedAt": { "type": "string" }
+      },
+      "required": ["userId", "fullName", "documentType", "documentImageUrl"]
+    },
+    "Transaction": {
+      "title": "Wallet Transaction Record",
+      "description": "Transaction audit log for wallet balance",
+      "type": "object",
+      "properties": {
+        "transactionId": { "type": "string" },
+        "userId": { "type": "string" },
+        "type": { "type": "string", "enum": ["income", "expense", "topup", "withdraw", "transfer"] },
+        "amount": { "type": "number" },
+        "description": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "approved", "rejected", "completed"] },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["transactionId", "userId", "type", "amount", "status"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profile documents"
+    },
+    "/posts/{postId}": {
+      "schema": "Post",
+      "description": "Social feed posts"
+    },
+    "/posts/{postId}/comments/{commentId}": {
+      "schema": "PostComment",
+      "description": "Comments on posts"
+    },
+    "/posts/{postId}/reactions/{reactionId}": {
+      "schema": "PostReaction",
+      "description": "Multi-reactions on posts"
+    },
+    "/datingProfiles/{profileId}": {
+      "schema": "DatingProfile",
+      "description": "Dating and matchmaking candidate profiles"
+    },
+    "/chats/{chatId}": {
+      "schema": "Chat",
+      "description": "Chat conversations"
+    },
+    "/chats/{chatId}/messages/{messageId}": {
+      "schema": "ChatMessage",
+      "description": "Messages in chat"
+    },
+    "/notifications/{notifId}": {
+      "schema": "Notification",
+      "description": "User activity notifications"
+    },
+    "/communities/{communityId}": {
+      "schema": "Community",
+      "description": "Country placement PMI communities"
+    },
+    "/reports/{reportId}": {
+      "schema": "Report",
+      "description": "User abuse and fraud reports"
+    },
+    "/verificationRequests/{reqId}": {
+      "schema": "VerificationRequest",
+      "description": "User ID/Passport verification submissions"
+    },
+    "/transactions/{txId}": {
+      "schema": "Transaction",
+      "description": "Wallet balance transactions"
+    }
+  }
+}
+
