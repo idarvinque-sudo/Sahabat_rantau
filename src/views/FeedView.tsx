@@ -39,7 +39,11 @@ export const FeedView: React.FC<FeedViewProps> = ({
   const [selectedCountryFilter, setSelectedCountryFilter] = useState<string>('all');
 
   // Report modal state
-  const [reportingPost, setReportingPost] = useState<Post | null>(null);
+  const [reportingData, setReportingData] = useState<{
+    targetType: 'post' | 'user';
+    targetId: string;
+    targetName: string;
+  } | null>(null);
 
   const filteredPosts = posts.filter((p) => {
     // Tab filtering
@@ -192,20 +196,22 @@ export const FeedView: React.FC<FeedViewProps> = ({
               currentUser={currentUser}
               onLikeToggle={onLikeToggle}
               onAddComment={onAddComment}
-              onOpenReport={(p) => setReportingPost(p)}
+              onOpenReport={(type, id, name) =>
+                setReportingData({ targetType: type, targetId: id, targetName: name })
+              }
             />
           ))
         )}
       </div>
 
       {/* Universal Report Modal */}
-      {reportingPost && (
+      {reportingData && (
         <ReportModal
-          isOpen={!!reportingPost}
-          onClose={() => setReportingPost(null)}
-          targetType="post"
-          targetId={reportingPost.id}
-          targetName={`Postingan oleh ${reportingPost.author.name}`}
+          isOpen={!!reportingData}
+          onClose={() => setReportingData(null)}
+          targetType={reportingData.targetType}
+          targetId={reportingData.targetId}
+          targetName={reportingData.targetName}
           currentUser={currentUser}
         />
       )}

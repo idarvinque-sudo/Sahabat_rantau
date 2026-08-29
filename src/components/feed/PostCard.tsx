@@ -243,8 +243,10 @@ export const PostCard: React.FC<PostCardProps> = ({
                 {post.author.name}
               </span>
               {post.author.isVerified && <VerifiedBadge size="sm" />}
-              {post.countryFlag && (
-                <span className="text-xs" title={post.country}>{post.countryFlag}</span>
+              {(post.countryFlag || post.author?.countryFlag) && (
+                <span className="text-xs" title={post.country || post.author?.country}>
+                  {post.countryFlag || post.author?.countryFlag}
+                </span>
               )}
 
               {!isOwnPost && currentUser && (
@@ -264,7 +266,7 @@ export const PostCard: React.FC<PostCardProps> = ({
               <span>{post.createdAt}</span>
               <span>•</span>
               <span className="font-medium text-purple-700 bg-purple-50 px-1.5 py-0.2 rounded">
-                {post.locationText || `${post.country || 'PMI Global'}`}
+                {post.locationText || post.country || post.author?.country || 'PMI Global'}
               </span>
               {post.category && (
                 <>

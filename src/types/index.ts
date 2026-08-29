@@ -74,6 +74,8 @@ export interface Post {
   isSaved?: boolean;
   comments: PostComment[];
   userId?: string;
+  country?: string;
+  countryFlag?: string;
 }
 
 export interface Story {
