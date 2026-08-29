@@ -97,8 +97,6 @@ export function subscribeToChatMessages(
   );
 }
 
-import { APP_CONFIG } from '../config/appConfig';
-
 /**
  * Send a message in a chat conversation
  */

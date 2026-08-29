@@ -19,6 +19,7 @@ interface HomeViewProps {
   onAddComment: (postId: string, text: string) => void;
   onOpenCommunity: () => void;
   onOpenJobs: () => void;
+  onOpenChatWithAdmin?: () => void;
 }
 
 export const HomeView: React.FC<HomeViewProps> = ({
@@ -33,6 +34,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
   onAddComment,
   onOpenCommunity,
   onOpenJobs,
+  onOpenChatWithAdmin,
 }) => {
   return (
     <div id="home-view" className="space-y-2 pb-6">
@@ -40,7 +42,11 @@ export const HomeView: React.FC<HomeViewProps> = ({
       <BalanceCard balance={balance} userId={currentUser?.uid} />
 
       {/* 2. Fitur Utama */}
-      <QuickAction onNavigateToMatch={onNavigateToMatch} />
+      <QuickAction
+        onNavigateToMatch={onNavigateToMatch}
+        onOpenChatWithAdmin={onOpenChatWithAdmin}
+        currentUser={currentUser}
+      />
 
       {/* 3. Cerita Temanmu */}
       <StoryList stories={stories} onCreateStory={onCreateStory} />
